@@ -9,7 +9,7 @@ import time
 from urllib import error as urllib_error
 from urllib import request as urllib_request
 
-from flask import Blueprint, Response, jsonify, render_template, request
+from flask import Blueprint, Response, jsonify, redirect, render_template, request
 
 from app.csv_data import CsvDatasetNotFound, csv_store
 from app.database import db
@@ -26,6 +26,15 @@ _cache_lock = Lock()
 _cache_store: dict[str, dict[str, object]] = {}
 _cache_hits = 0
 _cache_misses = 0
+
+
+def _external_service_url(env_name: str, default_port: int) -> str:
+    configured = os.getenv(env_name, "").strip()
+    if configured:
+        return configured
+
+    host = request.host.split(":", 1)[0]
+    return f"http://{host}:{default_port}"
 
 
 def _iso_now() -> str:
@@ -253,6 +262,8 @@ def home():
         cache_hits=_cache_hits,
         cache_misses=_cache_misses,
         hostname=socket.gethostname(),
+        grafana_url=_external_service_url("GRAFANA_URL", 3000),
+        prometheus_url=_external_service_url("PROMETHEUS_URL", 9090),
     )
 
 
@@ -282,9 +293,29 @@ def docs_alias():
         {
             "service": APP_NAME,
             "message": "Flask docs route placeholder. Refer to README for API usage.",
-            "endpoints": ["/", "/health", "/api/data", "/api/stats", "/api/csv/datasets"],
+            "endpoints": [
+                "/",
+                "/health",
+                "/api/data",
+                "/api/stats",
+                "/api/csv/datasets",
+                "/grafana",
+                "/prometheus",
+            ],
         }
     ), 200
+
+
+@health_bp.get("/grafana")
+def grafana_redirect():
+    """Redirect to Grafana UI using configured URL or current host."""
+    return redirect(_external_service_url("GRAFANA_URL", 3000), code=302)
+
+
+@health_bp.get("/prometheus")
+def prometheus_redirect():
+    """Redirect to Prometheus UI using configured URL or current host."""
+    return redirect(_external_service_url("PROMETHEUS_URL", 9090), code=302)
 
 
 @health_bp.get("/metrics")
