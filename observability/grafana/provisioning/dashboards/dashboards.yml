@@ -1,0 +1,16 @@
+# Grafana Dashboard Provisioning
+# Auto-load dashboards from files
+
+apiVersion: 1
+
+providers:
+  - name: 'OmniGuard Dashboards'
+    orgId: 1
+    folder: 'OmniGuard'
+    folderUid: 'omniguard'
+    type: file
+    disableDeletion: false
+    editable: true
+    updateIntervalSeconds: 30
+    options:
+      path: /etc/grafana/provisioning/dashboards

@@ -1,0 +1,185 @@
+# OmniGuard Alert Rules
+# Prometheus alerting rules for 5xx errors, latency, and cache performance
+
+groups:
+  # ==========================================================================
+  # ERROR RATE ALERTS
+  # ==========================================================================
+  - name: omniguard-errors
+    interval: 30s
+    rules:
+      # HIGH 5XX ERROR RATE - Triggers webhook if >5% for 1 minute
+      - alert: High5xxErrorRate
+        expr: |
+          (
+            sum(rate(omniguard_errors_total{error_type="server_error"}[1m])) 
+            / 
+            sum(rate(omniguard_requests_total[1m]))
+          ) > 0.05
+        for: 1m
+        labels:
+          severity: critical
+          service: omniguard
+          team: backend
+        annotations:
+          summary: "High 5xx error rate detected"
+          description: "5xx error rate is {{ $value | humanizePercentage }} (threshold: 5%)"
+          runbook_url: "https://wiki.omniguard.io/runbooks/high-5xx-errors"
+          dashboard: "http://localhost:3000/d/omniguard?viewPanel=error-rate"
+      
+      # HIGH 4XX ERROR RATE
+      - alert: High4xxErrorRate
+        expr: |
+          (
+            sum(rate(omniguard_errors_total{error_type="client_error"}[5m])) 
+            / 
+            sum(rate(omniguard_requests_total[5m]))
+          ) > 0.10
+        for: 5m
+        labels:
+          severity: warning
+          service: omniguard
+        annotations:
+          summary: "Elevated 4xx error rate"
+          description: "4xx error rate is {{ $value | humanizePercentage }} over 5 minutes"
+
+  # ==========================================================================
+  # LATENCY ALERTS
+  # ==========================================================================
+  - name: omniguard-latency
+    interval: 30s
+    rules:
+      # HIGH P95 LATENCY
+      - alert: HighLatencyP95
+        expr: |
+          histogram_quantile(0.95, 
+            sum(rate(omniguard_request_latency_seconds_bucket[5m])) by (le)
+          ) > 2
+        for: 5m
+        labels:
+          severity: warning
+          service: omniguard
+        annotations:
+          summary: "High P95 latency detected"
+          description: "P95 latency is {{ $value | humanizeDuration }} (threshold: 2s)"
+      
+      # VERY HIGH P99 LATENCY
+      - alert: HighLatencyP99
+        expr: |
+          histogram_quantile(0.99, 
+            sum(rate(omniguard_request_latency_seconds_bucket[5m])) by (le)
+          ) > 5
+        for: 5m
+        labels:
+          severity: critical
+          service: omniguard
+        annotations:
+          summary: "Critical P99 latency detected"
+          description: "P99 latency is {{ $value | humanizeDuration }} (threshold: 5s)"
+
+  # ==========================================================================
+  # CACHE ALERTS
+  # ==========================================================================
+  - name: omniguard-cache
+    interval: 1m
+    rules:
+      # LOW CACHE HIT RATIO
+      - alert: LowCacheHitRatio
+        expr: |
+          (
+            sum(rate(omniguard_cache_hits_total[5m])) 
+            / 
+            (sum(rate(omniguard_cache_hits_total[5m])) + sum(rate(omniguard_cache_misses_total[5m])))
+          ) < 0.5
+        for: 10m
+        labels:
+          severity: warning
+          service: omniguard
+          component: cache
+        annotations:
+          summary: "Low cache hit ratio"
+          description: "Cache hit ratio is {{ $value | humanizePercentage }} (threshold: 50%)"
+      
+      # CACHE MISS SPIKE
+      - alert: CacheMissSpike
+        expr: |
+          sum(rate(omniguard_cache_misses_total[1m])) > 100
+        for: 2m
+        labels:
+          severity: warning
+          service: omniguard
+          component: cache
+        annotations:
+          summary: "Cache miss rate spike detected"
+          description: "Cache misses at {{ $value }}/sec"
+
+  # ==========================================================================
+  # SERVICE HEALTH ALERTS
+  # ==========================================================================
+  - name: omniguard-health
+    interval: 30s
+    rules:
+      # SERVICE DOWN
+      - alert: ServiceDown
+        expr: up{job="omniguard-api"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: omniguard
+        annotations:
+          summary: "OmniGuard API instance down"
+          description: "Instance {{ $labels.instance }} is unreachable"
+      
+      # NO TRAFFIC
+      - alert: NoTraffic
+        expr: |
+          sum(rate(omniguard_requests_total[5m])) == 0
+        for: 10m
+        labels:
+          severity: warning
+          service: omniguard
+        annotations:
+          summary: "No traffic to OmniGuard"
+          description: "No requests received in the last 10 minutes"
+      
+      # HIGH ACTIVE CONNECTIONS
+      - alert: HighActiveConnections
+        expr: omniguard_active_connections > 100
+        for: 5m
+        labels:
+          severity: warning
+          service: omniguard
+        annotations:
+          summary: "High number of active connections"
+          description: "{{ $value }} active connections (threshold: 100)"
+
+  # ==========================================================================
+  # REDIS ALERTS
+  # ==========================================================================
+  - name: omniguard-redis
+    interval: 30s
+    rules:
+      # REDIS DOWN
+      - alert: RedisDown
+        expr: redis_up == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: redis
+          component: cache
+        annotations:
+          summary: "Redis is down"
+          description: "Redis instance is unreachable"
+      
+      # REDIS HIGH MEMORY
+      - alert: RedisHighMemory
+        expr: |
+          redis_memory_used_bytes / redis_memory_max_bytes > 0.8
+        for: 5m
+        labels:
+          severity: warning
+          service: redis
+          component: cache
+        annotations:
+          summary: "Redis memory usage high"
+          description: "Redis using {{ $value | humanizePercentage }} of max memory"

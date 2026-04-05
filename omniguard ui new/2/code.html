@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OmniGuard | Architecture &amp; Features</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#002c37",
+                        "on-primary-container": "#004352",
+                        "on-secondary-fixed": "#00440a",
+                        "surface-container": "#1a1a1a",
+                        "tertiary-fixed": "#92aeff",
+                        "on-surface-variant": "#adaaaa",
+                        "on-secondary": "#005a10",
+                        "surface-bright": "#2c2c2c",
+                        "outline": "#767575",
+                        "primary-fixed-dim": "#00c3eb",
+                        "tertiary-fixed-dim": "#7da0ff",
+                        "background": "#0e0e0e",
+                        "inverse-primary": "#00687e",
+                        "on-secondary-fixed-variant": "#006513",
+                        "tertiary-dim": "#759aff",
+                        "surface": "#0e0e0e",
+                        "error-container": "#9f0519",
+                        "surface-dim": "#0e0e0e",
+                        "surface-variant": "#262626",
+                        "surface-container-high": "#20201f",
+                        "tertiary": "#82a3ff",
+                        "inverse-on-surface": "#565555",
+                        "on-surface": "#ffffff",
+                        "surface-tint": "#6dddff",
+                        "on-secondary-container": "#e6ffdc",
+                        "on-tertiary-container": "#001747",
+                        "primary": "#6dddff",
+                        "outline-variant": "#484847",
+                        "surface-container-low": "#131313",
+                        "secondary": "#00fc40",
+                        "inverse-surface": "#fcf9f8",
+                        "secondary-container": "#006e16",
+                        "secondary-dim": "#00ec3b",
+                        "error-dim": "#d7383b",
+                        "on-tertiary-fixed-variant": "#003388",
+                        "secondary-fixed-dim": "#00ec3b",
+                        "primary-fixed": "#00d2fd",
+                        "on-primary-fixed-variant": "#004c5d",
+                        "tertiary-container": "#6f94fa",
+                        "on-error": "#490006",
+                        "primary-dim": "#00c3eb",
+                        "surface-container-lowest": "#000000",
+                        "on-background": "#ffffff",
+                        "secondary-fixed": "#00fc40",
+                        "on-primary": "#004c5e",
+                        "on-tertiary-fixed": "#001442",
+                        "primary-container": "#00d2fd",
+                        "surface-container-highest": "#262626",
+                        "on-error-container": "#ffa8a3",
+                        "error": "#ff716c",
+                        "on-tertiary": "#002363"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"],
+                        "mono": ["JetBrains Mono"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glow-line {
+            background: linear-gradient(90deg, transparent, #6dddff, transparent);
+            height: 1px;
+            box-shadow: 0 0 8px #00D4FF;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary/30">
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 h-16 max-w-screen-2xl mx-auto bg-[#0e0e0e]/80 backdrop-blur-xl font-['Space_Grotesk'] tracking-tight">
+<div class="text-2xl font-bold tracking-tighter text-[#00D4FF]">OmniGuard</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-slate-400 font-medium hover:text-[#6dddff] transition-colors duration-300 hover:drop-shadow-[0_0_8px_rgba(0,212,255,0.4)]" href="#">Features</a>
+<a class="text-[#00D4FF] font-bold border-b-2 border-[#00D4FF] pb-1 hover:text-[#6dddff] transition-colors duration-300 hover:drop-shadow-[0_0_8px_rgba(0,212,255,0.4)]" href="#">Architecture</a>
+<a class="text-slate-400 font-medium hover:text-[#6dddff] transition-colors duration-300 hover:drop-shadow-[0_0_8px_rgba(0,212,255,0.4)]" href="#">API Docs</a>
+<a class="text-slate-400 font-medium hover:text-[#6dddff] transition-colors duration-300 hover:drop-shadow-[0_0_8px_rgba(0,212,255,0.4)]" href="#">GitHub</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-slate-400 hover:text-white" data-icon="terminal">terminal</button>
+<button class="bg-primary text-on-primary px-5 py-1.5 rounded-lg font-bold hover:drop-shadow-[0_0_12px_rgba(109,221,255,0.5)] transition-all scale-95 duration-200 ease-in-out">Get Started</button>
+</div>
+<div class="bg-gradient-to-r from-transparent via-[#6dddff]/10 to-transparent h-[1px] w-full absolute bottom-0"></div>
+</nav>
+<main class="pt-32 pb-24 px-8 max-w-7xl mx-auto">
+<!-- Hero Header -->
+<header class="mb-24">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-6">
+<span class="w-2 h-2 rounded-full bg-secondary shadow-[0_0_8px_#00fc40]"></span>
+<span class="text-xs font-mono text-primary uppercase tracking-widest">System Core v4.2.0</span>
+</div>
+<h1 class="text-6xl md:text-8xl font-headline font-bold tracking-tighter mb-8 leading-none">
+                Architecture: <span class="text-primary italic">The Kinetic Core.</span>
+</h1>
+<p class="max-w-2xl text-on-surface-variant text-lg leading-relaxed">
+                OmniGuard's infrastructure is built for sub-millisecond latency. A distributed reactive mesh designed to neutralize threats before they reach your upstream services.
+            </p>
+</header>
+<!-- Section 1: High-Level Overview Diagram -->
+<section class="mb-32">
+<div class="flex items-center justify-between mb-12">
+<h2 class="text-3xl font-headline font-bold tracking-tight">Kinetic Topography</h2>
+<div class="hidden md:flex items-center gap-4 text-xs font-mono text-slate-500 uppercase tracking-widest">
+<span>Latency: &lt; 0.4ms</span>
+<span class="w-[1px] h-4 bg-outline-variant/30"></span>
+<span>Throughput: 10M+ req/s</span>
+</div>
+</div>
+<div class="relative bg-surface-container-low rounded-xl p-12 border border-outline-variant/10 overflow-hidden">
+<!-- Abstract Grid Background -->
+<div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 2px 2px, #6dddff 1px, transparent 0); background-size: 40px 40px;"></div>
+<div class="relative grid grid-cols-1 md:grid-cols-4 gap-12 items-center">
+<!-- Client -->
+<div class="flex flex-col items-center gap-4">
+<div class="w-20 h-20 rounded-xl bg-surface-container-highest border border-outline-variant/30 flex items-center justify-center shadow-xl">
+<span class="material-symbols-outlined text-4xl text-on-surface" data-icon="devices">devices</span>
+</div>
+<span class="font-headline font-bold uppercase tracking-widest text-xs">Global Clients</span>
+</div>
+<!-- Nginx -->
+<div class="relative flex flex-col items-center gap-4">
+<div class="absolute -left-12 top-10 w-24 h-[1px] glow-line hidden md:block"></div>
+<div class="w-24 h-24 rounded-xl bg-primary/10 border border-primary/40 flex flex-col items-center justify-center shadow-[0_0_30px_rgba(109,221,255,0.1)]">
+<span class="text-primary font-bold text-lg">NGINX</span>
+<span class="text-[10px] text-primary/60 font-mono">Edge Proxy</span>
+</div>
+<span class="font-headline font-bold uppercase tracking-widest text-xs">Ingress Layer</span>
+</div>
+<!-- FastAPI Cluster -->
+<div class="relative flex flex-col items-center gap-4">
+<div class="absolute -left-12 top-12 w-24 h-[1px] glow-line hidden md:block"></div>
+<div class="w-32 h-32 rounded-xl bg-surface-container-high border border-outline-variant/50 flex flex-col items-center justify-center gap-1 group transition-all hover:border-primary/50">
+<div class="flex gap-1 mb-1">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<div class="w-2 h-2 rounded-full bg-secondary/30"></div>
+</div>
+<span class="text-on-surface font-bold text-sm">FastAPI Mesh</span>
+<span class="text-[10px] text-on-surface-variant font-mono">Worker Node 14</span>
+</div>
+<span class="font-headline font-bold uppercase tracking-widest text-xs">Intelligence Cluster</span>
+</div>
+<!-- Redis/Upstream -->
+<div class="relative flex flex-col items-center gap-4">
+<div class="absolute -left-8 top-12 w-20 h-[1px] glow-line hidden md:block"></div>
+<div class="flex flex-col gap-4">
+<div class="w-24 h-14 rounded-lg bg-surface-container-lowest border border-outline-variant/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-red-400 text-2xl" data-icon="database">database</span>
+<span class="ml-2 font-mono text-[10px]">REDIS</span>
+</div>
+<div class="w-24 h-14 rounded-lg bg-surface-container-lowest border border-outline-variant/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-2xl" data-icon="cloud_upload">cloud_upload</span>
+<span class="ml-2 font-mono text-[10px]">API</span>
+</div>
+</div>
+<span class="font-headline font-bold uppercase tracking-widest text-xs">Persistence &amp; Source</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Request Flow -->
+<section class="mb-32">
+<h2 class="text-3xl font-headline font-bold tracking-tight mb-12">The Request Lifecycle</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Step 1 -->
+<div class="bg-surface-container p-8 rounded-xl border-l-4 border-primary">
+<div class="text-4xl font-headline font-black text-outline/20 mb-4">01</div>
+<h3 class="font-headline font-bold text-xl mb-3">Edge Interception</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">
+                        Inbound TCP packets are terminated at the Nginx edge. Initial SSL/TLS handshakes are handled via optimized BoringSSL.
+                    </p>
+</div>
+<!-- Step 2 -->
+<div class="bg-surface-container p-8 rounded-xl border-l-4 border-primary">
+<div class="text-4xl font-headline font-black text-outline/20 mb-4">02</div>
+<h3 class="font-headline font-bold text-xl mb-3">Context Enrichment</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">
+                        Metadata including IP geolocation, ASN reputation, and device fingerprinting is attached to the request header.
+                    </p>
+</div>
+<!-- Step 3 -->
+<div class="bg-surface-container p-8 rounded-xl border-l-4 border-primary">
+<div class="text-4xl font-headline font-black text-outline/20 mb-4">03</div>
+<h3 class="font-headline font-bold text-xl mb-3">FastAPI Validation</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">
+                        Python-based high-concurrency workers parse the payload. Pydantic models ensure schema integrity at the door.
+                    </p>
+</div>
+<!-- Step 4 -->
+<div class="bg-surface-container p-8 rounded-xl border-l-4 border-secondary">
+<div class="text-4xl font-headline font-black text-outline/20 mb-4">04</div>
+<h3 class="font-headline font-bold text-xl mb-3">Cache Lookaside</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">
+                        Redis clusters are queried for existing session tokens and rate-limit counters, avoiding expensive DB roundtrips.
+                    </p>
+</div>
+<!-- Step 5 -->
+<div class="bg-surface-container p-8 rounded-xl border-l-4 border-primary">
+<div class="text-4xl font-headline font-black text-outline/20 mb-4">05</div>
+<h3 class="font-headline font-bold text-xl mb-3">Threat Analysis</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">
+                        Vectorized signature matching runs against known exploit patterns (SQLi, XSS, RCE) in parallel execution threads.
+                    </p>
+</div>
+<!-- Step 6 -->
+<div class="bg-surface-container p-8 rounded-xl border-l-4 border-primary">
+<div class="text-4xl font-headline font-black text-outline/20 mb-4">06</div>
+<h3 class="font-headline font-bold text-xl mb-3">Proxy Dispatch</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">
+                        Upon clearance, the sanitized request is proxied to the upstream origin with an injected Omni-Guard-Signed header.
+                    </p>
+</div>
+</div>
+</section>
+<!-- Section 3: Component Responsibilities Table -->
+<section>
+<h2 class="text-3xl font-headline font-bold tracking-tight mb-12">System Registry</h2>
+<div class="bg-surface-container-low rounded-xl overflow-hidden border border-outline-variant/20">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high border-b border-outline-variant/30">
+<th class="px-8 py-5 font-headline font-bold uppercase tracking-widest text-[10px] text-slate-500">Component</th>
+<th class="px-8 py-5 font-headline font-bold uppercase tracking-widest text-[10px] text-slate-500">Service Port</th>
+<th class="px-8 py-5 font-headline font-bold uppercase tracking-widest text-[10px] text-slate-500">Critical Responsibility</th>
+<th class="px-8 py-5 font-headline font-bold uppercase tracking-widest text-[10px] text-slate-500">Health Status</th>
+</tr>
+</thead>
+<tbody class="text-sm">
+<tr class="border-b border-outline-variant/10 hover:bg-white/[0.02] transition-colors">
+<td class="px-8 py-6">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="font-bold">Edge Ingress</span>
+</div>
+</td>
+<td class="px-8 py-6 font-mono text-primary">80, 443, 8443</td>
+<td class="px-8 py-6 text-on-surface-variant">TLS Termination &amp; DDoS Mitigation (Layer 4/7)</td>
+<td class="px-8 py-6">
+<span class="inline-block px-2 py-1 rounded bg-secondary/10 text-secondary text-[10px] font-mono border border-secondary/20">OPERATIONAL</span>
+</td>
+</tr>
+<tr class="border-b border-outline-variant/10 hover:bg-white/[0.02] transition-colors">
+<td class="px-8 py-6">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="font-bold">FastAPI Logic</span>
+</div>
+</td>
+<td class="px-8 py-6 font-mono text-primary">8000..8012</td>
+<td class="px-8 py-6 text-on-surface-variant">Schema Validation, JWT Decoding, &amp; Rule Processing</td>
+<td class="px-8 py-6">
+<span class="inline-block px-2 py-1 rounded bg-secondary/10 text-secondary text-[10px] font-mono border border-secondary/20">OPERATIONAL</span>
+</td>
+</tr>
+<tr class="border-b border-outline-variant/10 hover:bg-white/[0.02] transition-colors">
+<td class="px-8 py-6">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="font-bold">Redis Sentinel</span>
+</div>
+</td>
+<td class="px-8 py-6 font-mono text-primary">6379, 26379</td>
+<td class="px-8 py-6 text-on-surface-variant">Ephemeral Session Store &amp; Distributed Rate Limiting</td>
+<td class="px-8 py-6">
+<span class="inline-block px-2 py-1 rounded bg-secondary/10 text-secondary text-[10px] font-mono border border-secondary/20">OPERATIONAL</span>
+</td>
+</tr>
+<tr class="hover:bg-white/[0.02] transition-colors">
+<td class="px-8 py-6">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="font-bold">Telemetry Sink</span>
+</div>
+</td>
+<td class="px-8 py-6 font-mono text-primary">9090, 3000</td>
+<td class="px-8 py-6 text-on-surface-variant">Prometheus Metrics &amp; Grafana Visualization Pipeline</td>
+<td class="px-8 py-6">
+<span class="inline-block px-2 py-1 rounded bg-secondary/10 text-secondary text-[10px] font-mono border border-secondary/20">OPERATIONAL</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 px-8 flex flex-col md:flex-row justify-between items-start gap-8 max-w-screen-2xl mx-auto bg-[#0e0e0e] border-t border-white/5 font-['Inter'] text-sm tracking-wide">
+<div class="flex flex-col gap-4">
+<div class="font-['Space_Grotesk'] font-bold text-[#00D4FF] text-xl">OmniGuard</div>
+<p class="text-slate-500 max-w-xs">© 2024 OmniGuard. Kinetic Guardian Protection. Enterprise-grade security for the modern web.</p>
+</div>
+<div class="flex gap-12">
+<div class="flex flex-col gap-3">
+<span class="text-white font-bold uppercase text-[10px] tracking-widest mb-2">Product</span>
+<a class="text-slate-500 hover:text-white transition-all opacity-80 hover:opacity-100" href="#">Docs</a>
+<a class="text-slate-500 hover:text-white transition-all opacity-80 hover:opacity-100" href="#">Architecture</a>
+<a class="text-slate-500 hover:text-white transition-all opacity-80 hover:opacity-100" href="#">Features</a>
+</div>
+<div class="flex flex-col gap-3">
+<span class="text-white font-bold uppercase text-[10px] tracking-widest mb-2">Community</span>
+<a class="text-slate-500 hover:text-white transition-all opacity-80 hover:opacity-100" href="#">GitHub</a>
+<a class="text-slate-500 hover:text-white transition-all opacity-80 hover:opacity-100" href="#">Discord</a>
+<a class="text-slate-500 hover:text-white transition-all opacity-80 hover:opacity-100" href="#">Twitter</a>
+</div>
+<div class="flex flex-col gap-3">
+<span class="text-white font-bold uppercase text-[10px] tracking-widest mb-2">Legal</span>
+<a class="text-slate-500 hover:text-white transition-all opacity-80 hover:opacity-100" href="#">Privacy</a>
+<a class="text-slate-500 hover:text-white transition-all opacity-80 hover:opacity-100" href="#">Security</a>
+</div>
+</div>
+<div class="flex flex-col items-end gap-2">
+<div class="flex items-center gap-2 px-3 py-1 bg-surface-container rounded-lg border border-outline-variant/20">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-[10px] font-mono text-slate-400">All Systems Nominal</span>
+</div>
+</div>
+</footer>
+<!-- Fixed Gradient Overlay for Aesthetic -->
+<div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/5 blur-[120px] pointer-events-none -z-10"></div>
+</body></html>

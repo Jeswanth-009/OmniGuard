@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed": "#00d2fd",
+                        "inverse-primary": "#00687e",
+                        "on-primary-fixed-variant": "#004c5d",
+                        "error": "#ff716c",
+                        "surface-dim": "#0e0e0e",
+                        "on-primary": "#004c5e",
+                        "on-tertiary-fixed": "#001442",
+                        "on-surface-variant": "#adaaaa",
+                        "surface-container": "#1a1a1a",
+                        "inverse-surface": "#fcf9f8",
+                        "secondary": "#00fc40",
+                        "error-container": "#9f0519",
+                        "on-tertiary-fixed-variant": "#003388",
+                        "tertiary-fixed-dim": "#7da0ff",
+                        "surface-container-lowest": "#000000",
+                        "secondary-container": "#006e16",
+                        "on-primary-fixed": "#002c37",
+                        "on-tertiary-container": "#001747",
+                        "tertiary-fixed": "#92aeff",
+                        "on-primary-container": "#004352",
+                        "tertiary-dim": "#759aff",
+                        "inverse-on-surface": "#565555",
+                        "primary-fixed-dim": "#00c3eb",
+                        "surface": "#0e0e0e",
+                        "on-secondary-fixed": "#00440a",
+                        "error-dim": "#d7383b",
+                        "primary-dim": "#00c3eb",
+                        "on-error-container": "#ffa8a3",
+                        "on-surface": "#ffffff",
+                        "tertiary": "#82a3ff",
+                        "primary": "#6dddff",
+                        "outline": "#767575",
+                        "surface-container-low": "#131313",
+                        "on-secondary-fixed-variant": "#006513",
+                        "surface-tint": "#6dddff",
+                        "surface-bright": "#2c2c2c",
+                        "secondary-fixed": "#00fc40",
+                        "secondary-dim": "#00ec3b",
+                        "on-error": "#490006",
+                        "on-secondary-container": "#e6ffdc",
+                        "surface-variant": "#262626",
+                        "surface-container-highest": "#262626",
+                        "background": "#0e0e0e",
+                        "on-background": "#ffffff",
+                        "tertiary-container": "#6f94fa",
+                        "primary-container": "#00d2fd",
+                        "secondary-fixed-dim": "#00ec3b",
+                        "surface-container-high": "#20201f",
+                        "on-tertiary": "#002363",
+                        "outline-variant": "#484847",
+                        "on-secondary": "#005a10"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"],
+                        "mono": ["JetBrains Mono"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glowing-grid {
+            background-image: 
+                linear-gradient(to right, rgba(0, 210, 253, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 210, 253, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 50%, rgba(0, 210, 253, 0.15) 0%, rgba(14, 14, 14, 0) 70%);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-on-primary">
+<!-- Shared TopNavBar Inclusion -->
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-surface overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-outline-variant/15 px-6 lg:px-20 py-4 bg-surface-container-low/80 backdrop-blur-xl sticky top-0 z-50">
+<div class="flex items-center gap-10">
+<div class="flex items-center gap-3 text-white">
+<div class="size-6 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-white text-xl font-headline font-bold leading-tight tracking-tight">OmniGuard</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant hover:text-primary text-sm font-medium transition-colors" href="#">Features</a>
+<a class="text-on-surface-variant hover:text-primary text-sm font-medium transition-colors" href="#">Docs</a>
+<a class="text-on-surface-variant hover:text-primary text-sm font-medium transition-colors" href="#">Pricing</a>
+<a class="text-on-surface-variant hover:text-primary text-sm font-medium transition-colors" href="#">About</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<label class="hidden lg:flex flex-col min-w-40 h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full overflow-hidden">
+<div class="text-on-surface-variant flex border-none bg-surface-container-highest items-center justify-center pl-4" data-icon="search" data-size="20px">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 border-none bg-surface-container-highest text-on-surface focus:ring-0 h-full placeholder:text-on-surface-variant/50 px-4 pl-2 text-sm" placeholder="Search docs..." value=""/>
+</div>
+</label>
+<div class="flex gap-3">
+<button class="flex min-w-[100px] cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-primary text-on-primary text-sm font-bold tracking-tight hover:brightness-110 transition-all">
+<span>Sign Up</span>
+</button>
+<button class="hidden sm:flex min-w-[100px] cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-surface-container-highest text-white text-sm font-bold tracking-tight hover:bg-surface-bright transition-all border border-outline-variant/20">
+<span>Login</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-grow">
+<!-- Hero Section -->
+<section class="relative pt-20 pb-32 glowing-grid overflow-hidden">
+<div class="absolute inset-0 hero-gradient"></div>
+<div class="max-w-[1200px] mx-auto px-6 relative z-10">
+<div class="flex flex-col items-center text-center gap-8">
+<div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-widest">
+<span class="material-symbols-outlined text-sm" data-weight="fill">shield_with_heart</span>
+                                v2.4.0 Kinetic Guardian Now Live
+                            </div>
+<h1 class="text-white text-5xl md:text-7xl font-headline font-bold leading-tight tracking-[-0.04em] max-w-4xl">
+                                The Kinetic Guardian of Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-fixed">Upstream Services.</span>
+</h1>
+<p class="text-on-surface-variant text-lg md:text-xl max-w-2xl font-light leading-relaxed">
+                                OmniGuard is a high-performance caching API gateway designed for sub-millisecond latency and unbreakable high availability at the edge.
+                            </p>
+<div class="flex flex-col sm:flex-row gap-4 mt-4">
+<button class="flex min-w-[180px] items-center justify-center rounded-lg h-14 px-8 bg-primary text-on-primary text-base font-bold tracking-tight hover:shadow-[0_0_20px_rgba(109,221,255,0.4)] transition-all">
+                                    Get Started
+                                </button>
+<button class="flex min-w-[180px] items-center justify-center rounded-lg h-14 px-8 bg-surface-container-highest text-white text-base font-bold tracking-tight border border-outline-variant/30 hover:bg-surface-bright transition-all">
+                                    View Docs
+                                </button>
+</div>
+<!-- Hero Visual Asset -->
+<div class="mt-16 w-full max-w-5xl aspect-[16/9] bg-surface-container rounded-xl border border-outline-variant/20 overflow-hidden shadow-2xl relative group">
+<div class="absolute inset-0 bg-gradient-to-b from-transparent to-surface/80 z-10"></div>
+<div class="w-full h-full bg-cover bg-center opacity-60 group-hover:scale-105 transition-transform duration-700" data-alt="Futuristic server room with blue neon light arrays and high-tech cooling systems in a dark environment" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDgpawN2VCrIT9TG8R5vCAseWf5PQlK3zcU5M7S8dKEOhoQC7ku9TXM5bh6sQYXspIKhTTSMDbFWnYaFcB9Ot68dGTW7smTRKKXin-bA6pYSSQWqDAGEKZ4_sMAlB41ytdB8Hq16o4vl6XtcUZnsBx1oU7yC6PoLXFtbym6SaeaASsgnIUbbB7PpFWK8loUkJ5w0_zoORQiV9q0ZUlcZSPPH94kcqyEJZm4UOl3BQJ7dV0c8luC9A61SQA75iN-vjwLReTKU-t9ZJk');">
+</div>
+<div class="absolute inset-0 z-20 flex items-center justify-center">
+<div class="p-8 bg-surface-container-lowest/80 backdrop-blur-md rounded-xl border border-primary/20 flex flex-col gap-4 max-w-md">
+<div class="flex items-center gap-3">
+<div class="size-3 rounded-full bg-secondary"></div>
+<span class="font-mono text-xs text-secondary">SYSTEMS_OPTIMAL</span>
+</div>
+<div class="space-y-2">
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary w-4/5"></div>
+</div>
+<div class="flex justify-between text-[10px] font-mono text-on-surface-variant">
+<span>CACHE_EFFICIENCY</span>
+<span>98.4%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Features Grid -->
+<section class="py-24 bg-surface-container-low relative">
+<div class="max-w-[1200px] mx-auto px-6">
+<div class="mb-16">
+<h2 class="text-white text-3xl md:text-4xl font-headline font-bold mb-4 tracking-tight">Engineered for Speed and Reliability</h2>
+<p class="text-on-surface-variant max-w-2xl">Deploy the gateway trusted by high-frequency trading platforms and global streaming services.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Feature 1 -->
+<div class="p-8 rounded-xl bg-surface-container border border-outline-variant/10 hover:border-primary/30 transition-all group">
+<div class="size-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+</div>
+<h3 class="text-white text-xl font-headline font-bold mb-3">Cache Hits (&lt;1ms)</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">Lightning fast response times with our optimized edge caching engine. Eliminate database round trips.</p>
+</div>
+<!-- Feature 2 -->
+<div class="p-8 rounded-xl bg-surface-container border border-outline-variant/10 hover:border-primary/30 transition-all group">
+<div class="size-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="sync_alt">sync_alt</span>
+</div>
+<h3 class="text-white text-xl font-headline font-bold mb-3">Auto Failover</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">Zero downtime with automated traffic rerouting and integrated intelligent health checks.</p>
+</div>
+<!-- Feature 3 -->
+<div class="p-8 rounded-xl bg-surface-container border border-outline-variant/10 hover:border-primary/30 transition-all group">
+<div class="size-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+</div>
+<h3 class="text-white text-xl font-headline font-bold mb-3">Real-time Monitoring</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">Visualize every request with high-fidelity performance metrics and distributed tracing.</p>
+</div>
+<!-- Feature 4 -->
+<div class="p-8 rounded-xl bg-surface-container border border-outline-variant/10 hover:border-primary/30 transition-all group">
+<div class="size-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="notification_important">notification_important</span>
+</div>
+<h3 class="text-white text-xl font-headline font-bold mb-3">Proactive Alerting</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">Stay ahead of issues with instant notifications via Slack, PagerDuty, and custom webhooks.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Quick Start Walkthrough -->
+<section class="py-24 bg-surface relative">
+<div class="max-w-[1200px] mx-auto px-6">
+<div class="flex flex-col lg:flex-row gap-16 items-start">
+<div class="lg:w-1/3">
+<h2 class="text-white text-4xl font-headline font-bold mb-6 tracking-tight">Get Started in <span class="text-primary">5 Minutes</span></h2>
+<p class="text-on-surface-variant mb-10 leading-relaxed">Our CLI-first approach ensures that you spend less time configuring and more time scaling.</p>
+<div class="space-y-8">
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="size-8 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold text-sm">1</div>
+<div class="w-px h-full bg-outline-variant/30 my-2"></div>
+</div>
+<div>
+<h4 class="text-white font-bold mb-1">Install CLI</h4>
+<p class="text-sm text-on-surface-variant">Bootstrap your environment with one command.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="size-8 rounded-full bg-surface-container-highest border border-outline-variant/30 flex items-center justify-center text-on-surface-variant font-bold text-sm">2</div>
+<div class="w-px h-full bg-outline-variant/30 my-2"></div>
+</div>
+<div>
+<h4 class="text-white font-bold mb-1">Configure Services</h4>
+<p class="text-sm text-on-surface-variant">Point OmniGuard at your existing API endpoints.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="size-8 rounded-full bg-surface-container-highest border border-outline-variant/30 flex items-center justify-center text-on-surface-variant font-bold text-sm">3</div>
+</div>
+<div>
+<h4 class="text-white font-bold mb-1">Global Deploy</h4>
+<p class="text-sm text-on-surface-variant">Push to production across our edge network.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:w-2/3 w-full">
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/20 shadow-2xl overflow-hidden">
+<div class="flex items-center justify-between px-6 py-3 border-b border-outline-variant/20 bg-surface-container">
+<div class="flex gap-2">
+<div class="size-3 rounded-full bg-error/40"></div>
+<div class="size-3 rounded-full bg-secondary/40"></div>
+<div class="size-3 rounded-full bg-primary/40"></div>
+</div>
+<span class="text-[10px] font-mono text-on-surface-variant uppercase tracking-widest">omni-terminal — zsh</span>
+</div>
+<div class="p-8 font-mono text-sm space-y-6">
+<div class="space-y-2">
+<div class="flex gap-3">
+<span class="text-secondary">$</span>
+<span class="text-on-surface">curl -sSL https://omni.guard/install | sh</span>
+</div>
+<div class="text-on-surface-variant/60 ml-6 italic"># Downloading OmniGuard CLI v2.4.0...</div>
+<div class="text-secondary ml-6">✓ CLI installed successfully to /usr/local/bin/omni</div>
+</div>
+<div class="space-y-2">
+<div class="flex gap-3">
+<span class="text-secondary">$</span>
+<span class="text-on-surface">omni init --upstream-url https://api.yourdomain.com</span>
+</div>
+<div class="text-on-surface-variant/60 ml-6 italic"># Analyzing upstream service...</div>
+<div class="text-primary ml-6">? Detected 12 endpoints. Enable smart-caching? (Y/n)</div>
+<div class="text-on-surface ml-6">Y</div>
+<div class="text-secondary ml-6">✓ Config generated: .omni/config.yaml</div>
+</div>
+<div class="space-y-2">
+<div class="flex gap-3">
+<span class="text-secondary">$</span>
+<span class="text-on-surface">omni deploy --region global</span>
+</div>
+<div class="text-on-surface-variant/60 ml-6 italic"># Synchronizing with edge nodes...</div>
+<div class="text-secondary ml-6">✓ Deployment successful! Your API is now protected.</div>
+<div class="text-primary-fixed ml-6 font-bold underline">https://api.omni.guard/cluster-ax-991</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant/10 py-16 px-6 lg:px-20">
+<div class="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+<div class="col-span-1 md:col-span-1">
+<div class="flex items-center gap-3 text-white mb-6">
+<div class="size-5 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-white text-lg font-headline font-bold leading-tight">OmniGuard</h2>
+</div>
+<p class="text-on-surface-variant text-sm leading-relaxed mb-6">
+                            High-performance API orchestration and security for the modern distributed web.
+                        </p>
+<div class="flex gap-4">
+<a class="text-on-surface-variant hover:text-primary" href="#"><span class="material-symbols-outlined">public</span></a>
+<a class="text-on-surface-variant hover:text-primary" href="#"><span class="material-symbols-outlined">terminal</span></a>
+<a class="text-on-surface-variant hover:text-primary" href="#"><span class="material-symbols-outlined">alternate_email</span></a>
+</div>
+</div>
+<div>
+<h4 class="text-white font-bold mb-6 text-sm uppercase tracking-widest">Platform</h4>
+<ul class="space-y-4 text-sm text-on-surface-variant">
+<li><a class="hover:text-primary transition-colors" href="#">Infrastructure</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Edge Network</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Performance</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Security</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white font-bold mb-6 text-sm uppercase tracking-widest">Resources</h4>
+<ul class="space-y-4 text-sm text-on-surface-variant">
+<li><a class="hover:text-primary transition-colors" href="#">Documentation</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">API Reference</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">System Status</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Changelog</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white font-bold mb-6 text-sm uppercase tracking-widest">Company</h4>
+<ul class="space-y-4 text-sm text-on-surface-variant">
+<li><a class="hover:text-primary transition-colors" href="#">About Us</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Careers</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Blog</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Contact</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-[1200px] mx-auto mt-16 pt-8 border-t border-outline-variant/10 flex flex-col md:flex-row justify-between items-center gap-6">
+<p class="text-xs text-on-surface-variant/60 font-mono">© 2024 OMNIGUARD TECHNOLOGIES. ALL RIGHTS RESERVED.</p>
+<div class="flex gap-8 text-xs text-on-surface-variant/60 font-mono">
+<a class="hover:text-white" href="#">PRIVACY POLICY</a>
+<a class="hover:text-white" href="#">TERMS OF SERVICE</a>
+</div>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

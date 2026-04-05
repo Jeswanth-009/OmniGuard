@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OmniGuard | Configuration &amp; Docs Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#002c37",
+                        "on-primary-container": "#004352",
+                        "on-secondary-fixed": "#00440a",
+                        "surface-container": "#1a1a1a",
+                        "tertiary-fixed": "#92aeff",
+                        "on-surface-variant": "#adaaaa",
+                        "on-secondary": "#005a10",
+                        "surface-bright": "#2c2c2c",
+                        "outline": "#767575",
+                        "primary-fixed-dim": "#00c3eb",
+                        "tertiary-fixed-dim": "#7da0ff",
+                        "background": "#0e0e0e",
+                        "inverse-primary": "#00687e",
+                        "on-secondary-fixed-variant": "#006513",
+                        "tertiary-dim": "#759aff",
+                        "surface": "#0e0e0e",
+                        "error-container": "#9f0519",
+                        "surface-dim": "#0e0e0e",
+                        "surface-variant": "#262626",
+                        "surface-container-high": "#20201f",
+                        "tertiary": "#82a3ff",
+                        "inverse-on-surface": "#565555",
+                        "on-surface": "#ffffff",
+                        "surface-tint": "#6dddff",
+                        "on-secondary-container": "#e6ffdc",
+                        "on-tertiary-container": "#001747",
+                        "primary": "#6dddff",
+                        "outline-variant": "#484847",
+                        "surface-container-low": "#131313",
+                        "secondary": "#00fc40",
+                        "inverse-surface": "#fcf9f8",
+                        "secondary-container": "#006e16",
+                        "secondary-dim": "#00ec3b",
+                        "error-dim": "#d7383b",
+                        "on-tertiary-fixed-variant": "#003388",
+                        "secondary-fixed-dim": "#00ec3b",
+                        "primary-fixed": "#00d2fd",
+                        "on-primary-fixed-variant": "#004c5d",
+                        "tertiary-container": "#6f94fa",
+                        "on-error": "#490006",
+                        "primary-dim": "#00c3eb",
+                        "surface-container-lowest": "#000000",
+                        "on-background": "#ffffff",
+                        "secondary-fixed": "#00fc40",
+                        "on-primary": "#004c5e",
+                        "on-tertiary-fixed": "#001442",
+                        "primary-container": "#00d2fd",
+                        "surface-container-highest": "#262626",
+                        "on-error-container": "#ffa8a3",
+                        "error": "#ff716c",
+                        "on-tertiary": "#002363"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-headline { font-family: 'Space Grotesk', sans-serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface selection:bg-primary/30">
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 h-16 max-w-screen-2xl mx-auto bg-[#0e0e0e]/80 backdrop-blur-xl font-['Space_Grotesk'] tracking-tight">
+<div class="text-2xl font-bold tracking-tighter text-[#00D4FF]">OmniGuard</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-slate-400 font-medium hover:text-[#6dddff] transition-colors duration-300 hover:drop-shadow-[0_0_8px_rgba(0,212,255,0.4)]" href="#">Features</a>
+<a class="text-slate-400 font-medium hover:text-[#6dddff] transition-colors duration-300 hover:drop-shadow-[0_0_8px_rgba(0,212,255,0.4)]" href="#">Architecture</a>
+<a class="text-[#00D4FF] font-bold border-b-2 border-[#00D4FF] pb-1 hover:text-[#6dddff] transition-colors duration-300 hover:drop-shadow-[0_0_8px_rgba(0,212,255,0.4)]" href="#">API Docs</a>
+<a class="text-slate-400 font-medium hover:text-[#6dddff] transition-colors duration-300 hover:drop-shadow-[0_0_8px_rgba(0,212,255,0.4)]" href="#">GitHub</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-[#00D4FF] scale-95 duration-200 ease-in-out hover:text-[#6dddff]">terminal</button>
+<button class="bg-[#00D4FF] text-[#002c37] px-5 py-1.5 rounded-lg font-bold text-sm scale-95 duration-200 ease-in-out hover:bg-[#6dddff]">Get Started</button>
+</div>
+<div class="bg-gradient-to-r from-transparent via-[#6dddff]/10 to-transparent h-[1px] w-full absolute bottom-0"></div>
+</nav>
+<main class="pt-24 pb-20 px-8 max-w-7xl mx-auto">
+<!-- Header -->
+<header class="mb-16">
+<h1 class="text-5xl md:text-7xl font-headline font-bold tracking-tighter text-on-surface mb-4">
+                Configuration: <span class="text-primary italic">Tune the Engine.</span>
+</h1>
+<p class="text-on-surface-variant max-w-2xl font-body text-lg">
+                Manage global environment variables and architectural directives. Ensure peak performance through granular kinetic optimization.
+            </p>
+</header>
+<!-- Bento Grid: Documentation Library -->
+<section class="mb-20">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-primary">library_books</span>
+<h2 class="text-2xl font-headline font-bold tracking-tight">Documentation Library</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+<!-- Architecture -->
+<div class="group bg-surface-container-low p-6 rounded-xl relative overflow-hidden transition-all duration-300 hover:bg-surface-container border border-outline-variant/10">
+<div class="flex flex-col h-full justify-between gap-4">
+<span class="material-symbols-outlined text-primary text-3xl">account_tree</span>
+<div>
+<h3 class="font-headline font-bold text-xl mb-2">Architecture</h3>
+<p class="text-on-surface-variant text-sm font-body">Deep dive into the core kinetic engine and security layers.</p>
+</div>
+</div>
+<div class="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary/50">arrow_outward</span>
+</div>
+</div>
+<!-- Deployment -->
+<div class="group bg-surface-container-low p-6 rounded-xl relative overflow-hidden transition-all duration-300 hover:bg-surface-container border border-outline-variant/10">
+<div class="flex flex-col h-full justify-between gap-4">
+<span class="material-symbols-outlined text-primary text-3xl">cloud_upload</span>
+<div>
+<h3 class="font-headline font-bold text-xl mb-2">Deployment</h3>
+<p class="text-on-surface-variant text-sm font-body">CI/CD workflows and multi-region staging protocols.</p>
+</div>
+</div>
+<div class="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary/50">arrow_outward</span>
+</div>
+</div>
+<!-- Troubleshooting -->
+<div class="group bg-surface-container-low p-6 rounded-xl relative overflow-hidden transition-all duration-300 hover:bg-surface-container border border-outline-variant/10">
+<div class="flex flex-col h-full justify-between gap-4">
+<span class="material-symbols-outlined text-primary text-3xl">build</span>
+<div>
+<h3 class="font-headline font-bold text-xl mb-2">Troubleshooting</h3>
+<p class="text-on-surface-variant text-sm font-body">Diagnostic tools and common resolution paths.</p>
+</div>
+</div>
+<div class="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary/50">arrow_outward</span>
+</div>
+</div>
+<!-- Runbooks -->
+<div class="group bg-surface-container-low p-6 rounded-xl relative overflow-hidden transition-all duration-300 hover:bg-surface-container border border-outline-variant/10 md:col-span-1">
+<div class="flex flex-col h-full justify-between gap-4">
+<span class="material-symbols-outlined text-primary text-3xl">menu_book</span>
+<div>
+<h3 class="font-headline font-bold text-xl mb-2">Runbooks</h3>
+<p class="text-on-surface-variant text-sm font-body">Step-by-step procedures for incident response.</p>
+</div>
+</div>
+<div class="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary/50">arrow_outward</span>
+</div>
+</div>
+<!-- Capacity Planning (Large Card) -->
+<div class="md:col-span-2 bg-gradient-to-br from-surface-container-low to-surface-container p-6 rounded-xl relative overflow-hidden border border-outline-variant/10 group">
+<div class="flex flex-col md:flex-row gap-6 items-center">
+<div class="flex-1">
+<h3 class="font-headline font-bold text-2xl mb-3">Capacity Planning</h3>
+<p class="text-on-surface-variant text-base font-body mb-4">Calculate throughput, storage requirements, and scaling limits for enterprise deployments.</p>
+<button class="text-primary font-bold flex items-center gap-2 text-sm uppercase tracking-widest hover:underline">
+                                Run Calculator <span class="material-symbols-outlined text-sm">trending_up</span>
+</button>
+</div>
+<div class="w-full md:w-48 h-32 bg-surface-container-lowest rounded-lg overflow-hidden border border-outline-variant/5">
+<div class="h-full w-full flex items-end gap-1 p-3">
+<div class="w-1/4 h-[40%] bg-primary/20 rounded-t"></div>
+<div class="w-1/4 h-[60%] bg-primary/40 rounded-t"></div>
+<div class="w-1/4 h-[90%] bg-primary/80 rounded-t"></div>
+<div class="w-1/4 h-[75%] bg-primary/60 rounded-t"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Environment Variables Section -->
+<section>
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">database</span>
+<h2 class="text-2xl font-headline font-bold tracking-tight">Environment Variables</h2>
+</div>
+<div class="flex gap-4">
+<button class="bg-surface-container-high border border-outline-variant/20 px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-sm">download</span> Export .env
+                    </button>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2 hover:bg-primary-dim transition-colors">
+<span class="material-symbols-outlined text-sm">add</span> Add Variable
+                    </button>
+</div>
+</div>
+<!-- Configuration Groups -->
+<div class="space-y-8">
+<!-- App Settings -->
+<div class="bg-surface-container-low rounded-xl overflow-hidden border border-outline-variant/10">
+<div class="bg-surface-container px-6 py-3 flex justify-between items-center">
+<span class="font-headline font-bold text-xs tracking-widest uppercase text-on-surface-variant">App Settings</span>
+<span class="text-[10px] bg-secondary-container/30 text-secondary px-2 py-0.5 rounded-full border border-secondary/20">Operational</span>
+</div>
+<div class="p-6 overflow-x-auto">
+<table class="w-full text-left font-body">
+<thead>
+<tr class="text-xs text-on-surface-variant uppercase tracking-tighter border-b border-outline-variant/10">
+<th class="pb-4 font-medium">Key</th>
+<th class="pb-4 font-medium">Default Value</th>
+<th class="pb-4 font-medium">Status</th>
+<th class="pb-4 font-medium text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/5">
+<tr>
+<td class="py-4 font-mono text-sm text-primary">OMNI_APP_ID</td>
+<td class="py-4 font-mono text-sm opacity-60">"guardian_v4_prod"</td>
+<td class="py-4"><span class="bg-error-container/20 text-error-dim px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-widest">Required</span></td>
+<td class="py-4 text-right"><button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors text-lg">edit</button></td>
+</tr>
+<tr>
+<td class="py-4 font-mono text-sm text-primary">OMNI_DEBUG_MODE</td>
+<td class="py-4 font-mono text-sm opacity-60">false</td>
+<td class="py-4"><span class="text-on-surface-variant/40 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-widest">Optional</span></td>
+<td class="py-4 text-right"><button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors text-lg">edit</button></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Redis & Cache -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<!-- Redis -->
+<div class="bg-surface-container-low rounded-xl overflow-hidden border border-outline-variant/10">
+<div class="bg-surface-container px-6 py-3">
+<span class="font-headline font-bold text-xs tracking-widest uppercase text-on-surface-variant">Redis Infrastructure</span>
+</div>
+<div class="p-6">
+<div class="space-y-6">
+<div class="flex justify-between items-start">
+<div>
+<label class="block text-[10px] text-on-surface-variant uppercase mb-1 font-bold">REDIS_HOST</label>
+<code class="font-mono text-sm text-primary">127.0.0.1</code>
+</div>
+<span class="bg-error-container/20 text-error-dim px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-widest">Required</span>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<label class="block text-[10px] text-on-surface-variant uppercase mb-1 font-bold">REDIS_PORT</label>
+<code class="font-mono text-sm text-primary">6379</code>
+</div>
+<span class="bg-error-container/20 text-error-dim px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-widest">Required</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Cache -->
+<div class="bg-surface-container-low rounded-xl overflow-hidden border border-outline-variant/10">
+<div class="bg-surface-container px-6 py-3">
+<span class="font-headline font-bold text-xs tracking-widest uppercase text-on-surface-variant">Cache Directives</span>
+</div>
+<div class="p-6">
+<div class="space-y-6">
+<div class="flex justify-between items-start">
+<div>
+<label class="block text-[10px] text-on-surface-variant uppercase mb-1 font-bold">CACHE_TTL</label>
+<code class="font-mono text-sm text-primary">3600</code>
+</div>
+<span class="text-on-surface-variant/40 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-widest">Optional</span>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<label class="block text-[10px] text-on-surface-variant uppercase mb-1 font-bold">CACHE_DRIVER</label>
+<code class="font-mono text-sm text-primary">"redis"</code>
+</div>
+<span class="text-on-surface-variant/40 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-widest">Optional</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Upstream & Server -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden border border-outline-variant/10">
+<div class="p-8 flex flex-col md:flex-row gap-12">
+<div class="flex-1">
+<h3 class="font-headline font-bold text-lg mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-primary">router</span>
+                                Upstream Definition
+                            </h3>
+<div class="space-y-4">
+<div class="flex justify-between border-b border-outline-variant/10 pb-2">
+<span class="text-sm font-mono text-on-surface-variant">GATEWAY_URL</span>
+<span class="text-sm font-mono text-secondary">https://api.omni.cloud</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant/10 pb-2">
+<span class="text-sm font-mono text-on-surface-variant">WEBHOOK_SECRET</span>
+<span class="text-sm font-mono text-primary">********</span>
+</div>
+</div>
+</div>
+<div class="flex-1 border-t md:border-t-0 md:border-l border-outline-variant/10 pt-8 md:pt-0 md:pl-12">
+<h3 class="font-headline font-bold text-lg mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-primary">dns</span>
+                                Server Matrix
+                            </h3>
+<div class="space-y-4">
+<div class="flex justify-between border-b border-outline-variant/10 pb-2">
+<span class="text-sm font-mono text-on-surface-variant">SERVER_PORT</span>
+<span class="text-sm font-mono text-secondary">8080</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant/10 pb-2">
+<span class="text-sm font-mono text-on-surface-variant">WORKER_THREADS</span>
+<span class="text-sm font-mono text-secondary">16</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Technical Log Snapshot -->
+<section class="mt-20">
+<div class="bg-surface-container-lowest border border-outline-variant/20 rounded-xl p-1 overflow-hidden shadow-2xl">
+<div class="bg-surface-container px-4 py-2 flex items-center gap-2">
+<div class="flex gap-1.5">
+<div class="w-3 h-3 rounded-full bg-error/40"></div>
+<div class="w-3 h-3 rounded-full bg-tertiary/40"></div>
+<div class="w-3 h-3 rounded-full bg-secondary/40"></div>
+</div>
+<span class="text-[10px] font-mono text-on-surface-variant ml-4">omni-engine --config-status</span>
+</div>
+<div class="p-4 font-mono text-[11px] leading-relaxed max-h-48 overflow-y-auto">
+<p class="text-secondary opacity-80">[INFO] Loading kinetic configuration...</p>
+<p class="text-on-surface opacity-60">[OK] APP_ID validated: guardian_v4_prod</p>
+<p class="text-on-surface opacity-60">[OK] Redis connection established at 127.0.0.1:6379</p>
+<p class="text-on-surface opacity-60">[OK] Upstream reachability: 12ms latency</p>
+<p class="text-error opacity-80">[WARN] CACHE_TTL using default (3600s)</p>
+<p class="text-secondary opacity-80">[SYSTEM] All systems nominal. Guardian active.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 px-8 flex flex-col md:flex-row justify-between items-start gap-8 max-w-screen-2xl mx-auto bg-[#0e0e0e] font-['Inter'] text-sm tracking-wide border-t border-white/5">
+<div class="space-y-4">
+<div class="font-['Space_Grotesk'] font-bold text-[#00D4FF] text-xl">OmniGuard</div>
+<p class="text-slate-500 max-w-xs">© 2024 OmniGuard. Kinetic Guardian Protection. All rights reserved.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-12">
+<div class="flex flex-col gap-3">
+<span class="font-bold text-white uppercase text-[10px] tracking-[0.2em] mb-2">Platform</span>
+<a class="text-slate-500 hover:text-white transition-all opacity-80 hover:opacity-100" href="#">Docs</a>
+<a class="text-slate-500 hover:text-white transition-all opacity-80 hover:opacity-100" href="#">GitHub</a>
+<a class="text-slate-500 hover:text-white transition-all opacity-80 hover:opacity-100" href="#">Discord</a>
+</div>
+<div class="flex flex-col gap-3">
+<span class="font-bold text-white uppercase text-[10px] tracking-[0.2em] mb-2">Legal</span>
+<a class="text-slate-500 hover:text-white transition-all opacity-80 hover:opacity-100" href="#">Privacy</a>
+<a class="text-slate-500 hover:text-white transition-all opacity-80 hover:opacity-100" href="#">Terms</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-[#00fc40] animate-pulse"></span>
+<span class="text-[#00fc40] font-bold text-[10px] uppercase tracking-widest">System Online</span>
+</div>
+</div>
+</footer>
+</body></html>

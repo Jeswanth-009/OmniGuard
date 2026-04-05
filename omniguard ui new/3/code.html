@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed": "#002c37",
+                    "on-primary-container": "#004352",
+                    "on-secondary-fixed": "#00440a",
+                    "surface-container": "#1a1a1a",
+                    "tertiary-fixed": "#92aeff",
+                    "on-surface-variant": "#adaaaa",
+                    "on-secondary": "#005a10",
+                    "surface-bright": "#2c2c2c",
+                    "outline": "#767575",
+                    "primary-fixed-dim": "#00c3eb",
+                    "tertiary-fixed-dim": "#7da0ff",
+                    "background": "#0e0e0e",
+                    "inverse-primary": "#00687e",
+                    "on-secondary-fixed-variant": "#006513",
+                    "tertiary-dim": "#759aff",
+                    "surface": "#0e0e0e",
+                    "error-container": "#9f0519",
+                    "surface-dim": "#0e0e0e",
+                    "surface-variant": "#262626",
+                    "surface-container-high": "#20201f",
+                    "tertiary": "#82a3ff",
+                    "inverse-on-surface": "#565555",
+                    "on-surface": "#ffffff",
+                    "surface-tint": "#6dddff",
+                    "on-secondary-container": "#e6ffdc",
+                    "on-tertiary-container": "#001747",
+                    "primary": "#6dddff",
+                    "outline-variant": "#484847",
+                    "surface-container-low": "#131313",
+                    "secondary": "#00fc40",
+                    "inverse-surface": "#fcf9f8",
+                    "secondary-container": "#006e16",
+                    "secondary-dim": "#00ec3b",
+                    "error-dim": "#d7383b",
+                    "on-tertiary-fixed-variant": "#003388",
+                    "secondary-fixed-dim": "#00ec3b",
+                    "primary-fixed": "#00d2fd",
+                    "on-primary-fixed-variant": "#004c5d",
+                    "tertiary-container": "#6f94fa",
+                    "on-error": "#490006",
+                    "primary-dim": "#00c3eb",
+                    "surface-container-lowest": "#000000",
+                    "on-background": "#ffffff",
+                    "secondary-fixed": "#00fc40",
+                    "on-primary": "#004c5e",
+                    "on-tertiary-fixed": "#001442",
+                    "primary-container": "#00d2fd",
+                    "surface-container-highest": "#262626",
+                    "on-error-container": "#ffa8a3",
+                    "error": "#ff716c",
+                    "on-tertiary": "#002363"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk"],
+                    "body": ["Inter"],
+                    "label": ["Inter"],
+                    "mono": ["JetBrains Mono"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(38, 38, 38, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .ghost-border {
+            border: 1px solid rgba(72, 72, 71, 0.15);
+        }
+        .kinetic-glow:hover {
+            box-shadow: 0 0 15px rgba(109, 221, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary/30">
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 h-16 max-w-screen-2xl mx-auto bg-[#0e0e0e]/80 backdrop-blur-xl">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-bold tracking-tighter text-[#00D4FF] font-['Space_Grotesk']">OmniGuard</span>
+<div class="hidden md:flex gap-6 items-center">
+<a class="text-slate-400 font-medium hover:text-[#6dddff] transition-colors duration-300 font-['Space_Grotesk'] tracking-tight" href="#">Features</a>
+<a class="text-slate-400 font-medium hover:text-[#6dddff] transition-colors duration-300 font-['Space_Grotesk'] tracking-tight" href="#">Architecture</a>
+<a class="text-[#00D4FF] font-bold border-b-2 border-[#00D4FF] pb-1 font-['Space_Grotesk'] tracking-tight" href="#">API Docs</a>
+<a class="text-slate-400 font-medium hover:text-[#6dddff] transition-colors duration-300 font-['Space_Grotesk'] tracking-tight" href="#">GitHub</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-400 hover:text-[#00D4FF] transition-all">
+<span class="material-symbols-outlined">terminal</span>
+</button>
+<button class="bg-primary text-on-primary px-5 py-2 font-headline font-bold text-sm tracking-tight kinetic-glow transition-all active:scale-95">Get Started</button>
+</div>
+<div class="bg-gradient-to-r from-transparent via-[#6dddff]/10 to-transparent h-[1px] w-full absolute bottom-0"></div>
+</nav>
+<div class="flex min-h-screen pt-16">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-16 w-64 h-[calc(100vh-4rem)] bg-surface-container-low overflow-y-auto hidden md:block">
+<div class="p-6 space-y-8">
+<div>
+<h3 class="text-[10px] uppercase tracking-[0.2em] text-on-surface-variant font-bold mb-4">Endpoints</h3>
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-on-surface hover:bg-surface-variant transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined text-sm text-outline group-hover:text-primary">pulse_alert</span>
+<span>/health</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined text-sm text-outline group-hover:text-primary">query_stats</span>
+<span>/metrics</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-primary bg-primary/5 rounded-lg group" href="#">
+<span class="material-symbols-outlined text-sm text-primary">database</span>
+<span>/api/data</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined text-sm text-outline group-hover:text-primary">memory</span>
+<span>/api/cache</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined text-sm text-outline group-hover:text-primary">speed</span>
+<span>/api/stats</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="pt-6 border-t border-white/5">
+<h3 class="text-[10px] uppercase tracking-[0.2em] text-on-surface-variant font-bold mb-4">Authentication</h3>
+<div class="p-3 bg-surface-container-lowest rounded-lg border border-outline-variant/10">
+<div class="flex justify-between items-center mb-2">
+<span class="text-[10px] font-mono text-outline">API KEY</span>
+<span class="material-symbols-outlined text-xs text-secondary" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+<code class="text-xs font-mono text-primary truncate block">omni_live_823...</code>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 p-8">
+<header class="mb-12">
+<div class="flex items-center gap-2 text-primary mb-2">
+<span class="material-symbols-outlined text-lg">api</span>
+<span class="text-xs font-mono tracking-widest uppercase">Version 2.4.0-kinetic</span>
+</div>
+<h1 class="text-5xl font-headline font-bold tracking-tighter mb-4">API Explorer: Control Your Gateway.</h1>
+<p class="text-on-surface-variant max-w-2xl leading-relaxed">
+                    Deploy, monitor, and scale your security architecture with our high-frequency REST interface. Designed for sub-millisecond response times and immutable data integrity.
+                </p>
+</header>
+<!-- Dashboard Section: Live Stats -->
+<section class="mb-16">
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+<div class="bg-surface-container-low p-6 rounded-xl ghost-border">
+<div class="flex justify-between items-start mb-4">
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Cache Hits</span>
+<span class="material-symbols-outlined text-secondary text-sm">trending_up</span>
+</div>
+<div class="text-3xl font-headline font-bold">1.28M</div>
+<div class="text-[10px] text-on-surface-variant mt-2 font-mono">Real-time sync active</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl ghost-border">
+<div class="flex justify-between items-start mb-4">
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Misses</span>
+<span class="material-symbols-outlined text-error text-sm">error_outline</span>
+</div>
+<div class="text-3xl font-headline font-bold">241K</div>
+<div class="text-[10px] text-on-surface-variant mt-2 font-mono">14% optimization room</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl ghost-border relative overflow-hidden group">
+<div class="absolute inset-0 bg-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex justify-between items-start mb-4 relative">
+<span class="text-xs font-bold text-secondary uppercase tracking-widest">Hit Ratio</span>
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<div class="text-3xl font-headline font-bold text-secondary relative">0.8282</div>
+<div class="w-full bg-surface-container-highest h-1 mt-4 rounded-full overflow-hidden relative">
+<div class="bg-secondary h-full" style="width: 82.82%"></div>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl ghost-border lg:col-span-1 hidden lg:block">
+<div class="flex justify-between items-start mb-4">
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Latency</span>
+<span class="material-symbols-outlined text-primary text-sm">speed</span>
+</div>
+<div class="text-3xl font-headline font-bold text-primary">12ms</div>
+<div class="text-[10px] text-on-surface-variant mt-2 font-mono">Global edge average</div>
+</div>
+</div>
+</section>
+<!-- Detailed Endpoint Documentation -->
+<section class="space-y-12 mb-20">
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-12 items-start">
+<!-- Text Info -->
+<div class="space-y-6">
+<div class="inline-flex items-center gap-3 bg-surface-container-high px-4 py-2 rounded-lg ghost-border">
+<span class="text-xs font-bold font-mono text-primary">GET</span>
+<span class="text-xs font-mono text-on-surface-variant">/api/v2/data/streams</span>
+</div>
+<h2 class="text-3xl font-headline font-bold">Real-time Data Stream</h2>
+<p class="text-on-surface-variant leading-relaxed">
+                            Initialize a multiplexed binary stream from the OmniGuard gateway. This endpoint supports WebSocket upgrades and gRPC-Web for low-latency telemetry. 
+                        </p>
+<div class="space-y-4">
+<h4 class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Parameters</h4>
+<div class="bg-surface-container-low rounded-xl overflow-hidden ghost-border">
+<table class="w-full text-left text-sm">
+<thead class="bg-surface-container-highest/50 border-b border-white/5">
+<tr>
+<th class="p-4 font-bold">Key</th>
+<th class="p-4 font-bold">Type</th>
+<th class="p-4 font-bold">Description</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5 font-mono text-[13px]">
+<tr>
+<td class="p-4 text-primary">stream_id</td>
+<td class="p-4 text-on-surface-variant">UUID</td>
+<td class="p-4">Unique identifier for the session.</td>
+</tr>
+<tr>
+<td class="p-4 text-primary">buffer_size</td>
+<td class="p-4 text-on-surface-variant">Integer</td>
+<td class="p-4">Size of the initial flush window (kb).</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Code Snippet Area -->
+<div class="space-y-6">
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden ghost-border">
+<div class="bg-surface-container px-6 py-3 flex justify-between items-center">
+<span class="text-xs font-mono text-outline">REQUEST SAMPLE</span>
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">content_copy</span>
+</button>
+</div>
+<pre class="p-6 text-sm font-mono leading-relaxed overflow-x-auto"><code class="text-secondary-dim">curl</code><code class="text-on-surface"> -X GET \
+  'https://api.omniguard.io/v2/data/streams' \
+  -H </code><code class="text-primary">'Authorization: Bearer YOUR_TOKEN'</code><code class="text-on-surface"> \
+  -d '{
+    "stream_id": "8f3e-92b1-4f22",
+    "buffer_size": 1024
+  }'</code></pre>
+</div>
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden ghost-border">
+<div class="bg-surface-container px-6 py-3 flex justify-between items-center">
+<span class="text-xs font-mono text-outline">RESPONSE</span>
+<span class="text-[10px] bg-secondary/10 text-secondary px-2 py-0.5 rounded border border-secondary/20">200 OK</span>
+</div>
+<pre class="p-6 text-sm font-mono leading-relaxed overflow-x-auto text-primary-dim">{
+  "status": "established",
+  "connection": {
+    "protocol": "wss",
+    "node": "us-east-4",
+    "latency": "8ms"
+  },
+  "metadata": {
+    "shards": 12,
+    "security": "AES-256-GCM"
+  }
+}</pre>
+</div>
+</div>
+</div>
+<div class="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-12 items-start opacity-70 hover:opacity-100 transition-opacity duration-500">
+<!-- Second Endpoint -->
+<div class="space-y-6">
+<div class="inline-flex items-center gap-3 bg-surface-container-high px-4 py-2 rounded-lg ghost-border">
+<span class="text-xs font-bold font-mono text-tertiary">POST</span>
+<span class="text-xs font-mono text-on-surface-variant">/api/v2/cache/flush</span>
+</div>
+<h2 class="text-3xl font-headline font-bold">Invalidate Global Cache</h2>
+<p class="text-on-surface-variant leading-relaxed">
+                            Force an immediate synchronization event across all distributed edge nodes. Use with caution as this will trigger high-volume re-fetching.
+                        </p>
+</div>
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden ghost-border">
+<div class="bg-surface-container px-6 py-3 flex justify-between items-center">
+<span class="text-xs font-mono text-outline">TERMINAL LOG</span>
+<span class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="text-[10px] font-mono text-secondary">ACTIVE</span>
+</span>
+</div>
+<div class="p-6 font-mono text-xs space-y-2">
+<div class="text-on-surface-variant">[14:22:01] <span class="text-primary">INFO</span> Initializing flush on node 0x82...</div>
+<div class="text-on-surface-variant">[14:22:03] <span class="text-secondary">OK</span> Cache purged on US-WEST-2</div>
+<div class="text-on-surface-variant">[14:22:04] <span class="text-secondary">OK</span> Cache purged on EU-CENTRAL-1</div>
+<div class="text-on-surface-variant">[14:22:05] <span class="text-error">FAIL</span> Handshake timeout on ASIA-SOUTH-1</div>
+<div class="text-on-surface-variant">[14:22:06] <span class="text-primary">RETRY</span> Retrying secure handshake...</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+<!-- Footer -->
+<footer class="w-full py-12 px-8 flex flex-col md:flex-row justify-between items-start gap-8 max-w-screen-2xl mx-auto bg-[#0e0e0e] border-t border-white/5">
+<div class="space-y-4">
+<span class="font-['Space_Grotesk'] font-bold text-[#00D4FF] text-2xl tracking-tighter">OmniGuard</span>
+<p class="text-slate-500 text-sm font-['Inter'] tracking-wide">© 2024 OmniGuard. Kinetic Guardian Protection.</p>
+</div>
+<div class="flex gap-12">
+<div class="flex flex-col gap-3">
+<span class="text-xs font-bold text-on-surface uppercase tracking-widest mb-2">Resources</span>
+<a class="text-slate-500 hover:text-white transition-all text-sm font-['Inter']" href="#">Docs</a>
+<a class="text-slate-500 hover:text-white transition-all text-sm font-['Inter']" href="#">GitHub</a>
+<a class="text-slate-500 hover:text-white transition-all text-sm font-['Inter']" href="#">Discord</a>
+</div>
+<div class="flex flex-col gap-3">
+<span class="text-xs font-bold text-on-surface uppercase tracking-widest mb-2">Legal</span>
+<a class="text-slate-500 hover:text-white transition-all text-sm font-['Inter']" href="#">Privacy</a>
+<a class="text-slate-500 hover:text-white transition-all text-sm font-['Inter']" href="#">Terms</a>
+<a class="text-slate-500 hover:text-white transition-all text-sm font-['Inter']" href="#">Security</a>
+</div>
+</div>
+</footer>
+</body></html>

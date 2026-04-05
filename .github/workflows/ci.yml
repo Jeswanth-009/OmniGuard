@@ -1,0 +1,300 @@
+# OmniGuard CI/CD Pipeline
+# Runs tests, coverage checks, and builds Docker images
+
+name: OmniGuard CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+env:
+  PYTHON_VERSION: "3.11"
+  COVERAGE_THRESHOLD: 70
+
+jobs:
+  # ==========================================================================
+  # LINT & TYPE CHECK
+  # ==========================================================================
+  lint:
+    name: 🔍 Lint & Format Check
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+      
+      - name: Install linting tools
+        run: |
+          pip install --upgrade pip
+          pip install ruff mypy
+      
+      - name: Run Ruff linter
+        run: |
+          ruff check app/ tests/ --output-format=github
+      
+      - name: Run Ruff formatter check
+        run: |
+          ruff format app/ tests/ --check
+
+  # ==========================================================================
+  # UNIT TESTS
+  # ==========================================================================
+  test:
+    name: 🧪 Test Suite
+    runs-on: ubuntu-latest
+    needs: lint
+    
+    services:
+      redis:
+        image: redis:7.2-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+      
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Run tests with coverage
+        env:
+          REDIS_HOST: localhost
+          REDIS_PORT: 6379
+          ENVIRONMENT: test
+        run: |
+          pytest tests/ \
+            --cov=app \
+            --cov-report=xml \
+            --cov-report=html \
+            --cov-report=term-missing \
+            --cov-fail-under=${{ env.COVERAGE_THRESHOLD }} \
+            -v
+      
+      - name: Upload coverage report
+        uses: codecov/codecov-action@v3
+        if: always()
+        with:
+          files: ./coverage.xml
+          flags: unittests
+          name: omniguard-coverage
+          fail_ci_if_error: false
+      
+      - name: Upload coverage HTML report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage-report
+          path: htmlcov/
+          retention-days: 7
+
+  # ==========================================================================
+  # SECURITY SCAN
+  # ==========================================================================
+  security:
+    name: 🔒 Security Scan
+    runs-on: ubuntu-latest
+    needs: lint
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+      
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install bandit safety
+      
+      - name: Run Bandit security scanner
+        run: |
+          bandit -r app/ -f json -o bandit-report.json
+          bandit -r app/ -f txt
+      
+      - name: Check dependencies for vulnerabilities
+        run: |
+          pip install -r requirements.txt
+          safety check --full-report
+      
+      - name: Upload security report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: security-report
+          path: bandit-report.json
+          retention-days: 7
+
+  # ==========================================================================
+  # BUILD DOCKER IMAGE
+  # ==========================================================================
+  build:
+    name: 🐳 Build Docker Image
+    runs-on: ubuntu-latest
+    needs: [test, security]
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: false
+          tags: omniguard-api:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            BUILD_VERSION=${{ github.sha }}
+      
+      - name: Test Docker image
+        run: |
+          docker build -t omniguard-api:test .
+          docker run --rm omniguard-api:test python -c "from app.main import app; print('Import successful')"
+
+  # ==========================================================================
+  # INTEGRATION TEST
+  # ==========================================================================
+  integration:
+    name: 🔄 Integration Tests
+    runs-on: ubuntu-latest
+    needs: build
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Docker Compose
+        run: |
+          docker compose version
+      
+      - name: Build and start services
+        run: |
+          docker compose build
+          docker compose up -d redis
+          sleep 5  # Wait for Redis to be ready
+      
+      - name: Set up Python for tests
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+      
+      - name: Install test dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Run integration tests
+        env:
+          REDIS_HOST: localhost
+          REDIS_PORT: 6379
+          ENVIRONMENT: test
+        run: |
+          pytest tests/test_integration.py -v --tb=short
+      
+      - name: Cleanup
+        if: always()
+        run: |
+          docker compose down -v
+
+  # ==========================================================================
+  # RESILIENCE SMOKE TESTS
+  # ==========================================================================
+  resilience-smoke:
+    name: ⚙️ Resilience Smoke
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build and start stack
+        run: |
+          docker compose build
+          docker compose up -d redis omniguard-api nginx alertmanager alert-webhook
+
+      - name: Run k6 latency/error smoke
+        run: |
+          NETWORK_NAME=$(docker network ls --format '{{.Name}}' | grep 'omniguard-network' | head -n 1)
+          if [ -z "$NETWORK_NAME" ]; then
+            echo "Could not find compose network"
+            exit 1
+          fi
+
+          docker run --rm -i \
+            --network "$NETWORK_NAME" \
+            --env TARGET_URL=http://omniguard-nginx/api/csv/users \
+            -v "$PWD/loadtest:/scripts" \
+            grafana/k6 run --vus 20 --duration 15s /scripts/k6-api-load.js
+
+      - name: Run alert delivery smoke
+        run: |
+          chmod +x scripts/alert_smoke_test.sh
+          ./scripts/alert_smoke_test.sh
+
+      - name: Cleanup
+        if: always()
+        run: |
+          docker compose down -v
+
+  # ==========================================================================
+  # SUMMARY
+  # ==========================================================================
+  summary:
+    name: ✅ Pipeline Summary
+    runs-on: ubuntu-latest
+    needs: [test, security, build, integration, resilience-smoke]
+    if: always()
+    
+    steps:
+      - name: Check job results
+        run: |
+          echo "Test: ${{ needs.test.result }}"
+          echo "Security: ${{ needs.security.result }}"
+          echo "Build: ${{ needs.build.result }}"
+          echo "Integration: ${{ needs.integration.result }}"
+          echo "Resilience Smoke: ${{ needs.resilience-smoke.result }}"
+          
+          if [[ "${{ needs.test.result }}" != "success" ]]; then
+            echo "❌ Tests failed"
+            exit 1
+          fi
+
+          if [[ "${{ needs.resilience-smoke.result }}" != "success" ]]; then
+            echo "❌ Resilience smoke tests failed"
+            exit 1
+          fi
+          
+          echo "✅ All checks passed!"
