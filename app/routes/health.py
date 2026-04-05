@@ -261,7 +261,7 @@ def health():
     """Legacy-compatible health payload."""
     db_health = _db_health()
     upstream_health = _upstream_health()
-    overall = "healthy" if db_health.get("connected") else "degraded"
+    overall = "ok"
 
     return jsonify(
         {
